@@ -1,0 +1,15 @@
+body{
+    background: url("../img/bg-login.jpg");
+}
+.loginSection{
+    margin-top: 100px;
+}
+ul.nav-tabs li.active{
+    border-radis:20px;
+}
+.tab-content{
+    color: white;
+}
+span{
+    color: white;
+}

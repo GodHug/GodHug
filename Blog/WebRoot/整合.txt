@@ -1,0 +1,3 @@
+1.MyBatis3.x和Spring4.x整合是 导入的MyBatis-Spring.jar要使用1.3.x版本以上才行。
+2.Junit使用的是junit4.12
+3.分页用pagehelper-4.1.6.jar jsqlparser-0.9.5.jar

@@ -1,0 +1,20 @@
+div.container div.row{
+    margin-top:30px;
+}
+div.container div.row div{
+	text-align:center;
+}
+div.container div.row div.tit {
+    border-right: 1px solid gray;
+}
+div.article span{
+    display: inline-block;
+    padding-right: 20px;
+}
+
+.allPosts{
+    margin-left: 30px;
+}
+.article{
+    padding-top: 20px;
+}

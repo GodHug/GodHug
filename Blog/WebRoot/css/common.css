@@ -1,0 +1,36 @@
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+a:link{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
+@font-face {
+    font-family: '1';
+    font-style: normal;
+    font-weight: 100;
+    src:url("../fonts/myFont/MEz38VLIFL-t46JUtkIEgNFPPhm6yPYYGACxOp9LMJ4.woff2");
+}
+@font-face {
+    font-family: '2';
+    font-style: normal;
+    font-weight: 300;
+    src:url(../fonts/myFont/dazS1PrQQuCxC3iOAJFEJUo2lTMeWA_kmIyWrkNCwPc.woff2);
+}
+@font-face {
+    font-family: '3';
+    font-style: normal;
+    font-weight: 400;
+    src:url(../fonts/myFont/y7lebkjgREBJK96VQi37Zo4P5ICox8Kq3LLUNMylGO4.woff2)
+}
+@font-face {
+    font-family: '4';
+    font-style: normal;
+    font-weight: 700;
+    src:url(../fonts/myFont/dazS1PrQQuCxC3iOAJFEJYlIZu-HDpmDIZMigmsroc4.woff2)
+}

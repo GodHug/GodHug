@@ -1,0 +1,66 @@
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+	margin:0;
+	padding:0;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+a{
+    text-decoration: none;
+}
+em,
+strong,
+b,
+i,u{
+	font-style:normal;
+}
+ol,
+ul {
+	list-style:none;
+}
+h1,
+h2,
+h3
+{
+	font-size:100%;
+	font-weight:normal;
+}
+input,
+textarea,
+select {
+	font-family:inherit;
+	font-size:inherit;
+	font-weight:inherit;
+	*font-size:100%; /*to enable resizing for IE*/
+}
+img{
+	border: none;
+}
+button{
+	border: none;
+}
+body,html{
+	/*background-color: #FFF5EE;*/
+	font-family: '3';
+	font-size: 100%;
+}
+

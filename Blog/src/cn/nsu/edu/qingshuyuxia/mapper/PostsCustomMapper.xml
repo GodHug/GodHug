@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.nsu.edu.qingshuyuxia.mapper.PostsCustomMapper">
+
+	<!-- 定义商品查询的sql片段,就是商品查询条件 -->
+	<sql id="query_posts_where">
+		<!-- 使用动态sql，通过if判断，满足条件进行sql拼接 -->
+		<!-- 商品查询条件通过ItemsQueryVo包装对象中itemsCustom属性传递 -->
+		<if test="postsCustom != null">
+			<if test="postsCustom.postsIsPublished != null">
+				posts.postsIsPublished=${postsCustom.postsIsPublished}
+			</if>
+		</if>
+	</sql>
+
+	<!-- 根据作者id查询所有的posts -->
+	<select id="findPostsByAuthorId" parameterType="java.lang.Integer"
+		resultType="cn.nsu.edu.qingshuyuxia.po.PostsCustom">
+		select * from posts where postsAuthorId=#{id}
+	</select>
+
+	<!-- 查询posts为已发表的帖子,条件查询 -->
+	<select id="findPostsHasPublished" parameterType="cn.nsu.edu.qingshuyuxia.po.PostsCustomVo"
+		resultType="cn.nsu.edu.qingshuyuxia.po.PostsCustom">
+		select * from posts
+		<where>
+			<include refid="query_posts_where"></include>
+		</where>
+	</select>
+
+	<!-- 根据id查找当前作者的posts -->
+	<select id="findPostsById" parameterType="java.lang.Integer"
+		resultType="cn.nsu.edu.qingshuyuxia.po.PostsCustom">
+		select * from posts WHERE 1 = 1 AND
+		<if test="id != null">
+			posts.id = #{id}
+		</if>
+	</select>
+
+	<!--根据用户名查询 -->
+	<select id="selectPostsByPostsCondition" parameterType="cn.nsu.edu.qingshuyuxia.po.PostsCustom"
+		resultType="cn.nsu.edu.qingshuyuxia.po.PostsCustom">
+		SELECT * FROM posts WHERE postsIsPublished = TRUE
+		<if test="postsname != null">
+			AND postsName=#{postsname}
+		</if>
+		<if test="postscreatetime != null">
+			ORDER BY postsCreateTime DESC
+		</if>
+		<if test="reviewnumber != null">
+			ORDER BY reviewNumber DESC
+		</if>
+	</select>
+
+	<!-- 插入一条posts数据 -->
+	<insert id="insertPosts" parameterType="cn.nsu.edu.qingshuyuxia.po.PostsCustom">
+		INSERT INTO posts(
+		postsName,
+		postsContent,
+		postsPic,
+		postsAuthorId,
+		whereMd,
+		mdLevel,
+		postsCreateTime,
+		postsIsPublished
+		)VALUES
+		(#{postsname},#{postscontent},#{postspic},#{postsauthorid},#{wheremd},#{mdlevel},#{postscreatetime},#{postsIsPublished})
+	</insert>
+
+	<!-- 联合module查找 -->
+	<select id="queryPostsByPublished" parameterType="cn.nsu.edu.qingshuyuxia.po.PostsCustom"
+		resultType="cn.nsu.edu.qingshuyuxia.po.PostsCustom">
+		SELECT
+		posts.*, module.mdName
+		FROM
+		posts,
+		module
+		WHERE posts.whereMd =
+		module.id
+		<if test="postsauthorid != null">
+			AND posts.postsauthorid=#{postsauthorid}
+		</if>
+		<if test="postsIsPublished != null">
+			AND posts.postsIsPublished=#{postsIsPublished}
+		</if>
+	</select>
+
+	<delete id="deletePostsBatch" parameterType="Integer[]">
+		DELETE FROM posts WHERE id in
+		<foreach collection="array" item="id" index="index" open="("
+			close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="selectPostsRadom" parameterType="Integer[]" resultType="cn.nsu.edu.qingshuyuxia.po.PostsCustom">
+		SELECT * FROM posts WHERE id IN
+		<foreach collection="array" item="id" index="index" open="("
+				 close=")" separator=",">
+			#{id}
+		</foreach>
+	</select>
+
+	<select id="getAllPostsNum" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM posts
+	</select>
+</mapper>
