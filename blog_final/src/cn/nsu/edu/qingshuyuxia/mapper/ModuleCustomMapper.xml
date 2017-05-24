@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.nsu.edu.qingshuyuxia.mapper.ModuleCustomMapper">
+<!-- //根据id查模块名字 -->
+	<select id="findModuleNameById" parameterType="java.lang.Integer"
+		resultType="java.lang.String">
+		SELECT mdName from module where id=#{id}
+	</select>
+	
+<!-- //查询所有的模块,包括子模块 -->
+	<select id="findAllModule" parameterType="cn.nsu.edu.qingshuyuxia.po.ModuleCustomVo"
+		resultMap="queryAllModuleResultMap">
+        SELECT
+            module.id,
+            module.mdName oneMdName,
+            (SELECT COUNT(*) FROM posts WHERE postsMdName = onemdName) oneMdPostsNum,
+            twomodule.id twoMdId,
+            twomodule.mdName twoMdName,
+            (SELECT COUNT(*) FROM posts WHERE postsMdName = twomdName) twoMdPostsNum,
+            twomodule.parentMd parentMd
+        FROM
+            module
+        LEFT JOIN twomodule ON twomodule.parentMd = module.id ORDER BY id
+	</select>
+	<resultMap id="queryAllModuleResultMap" type="cn.nsu.edu.qingshuyuxia.po.ModuleCustom">
+		<id column="id" property="id"></id>
+		<result column="oneMdName" property="mdname"/>
+        <result column="oneMdPostsNum" property="postsNum"/>
+		<collection property="twoMdList" ofType="cn.nsu.edu.qingshuyuxia.po.ModuleCustom">
+			<id column="twoMdId" property="id"/>
+			<result column="twoMdName" property="mdname"/>
+			<result column="parentMd" property="parentmd"/>
+            <result column="twoMdPostsNum" property="postsNum"/>
+		</collection>
+	</resultMap>
+
+</mapper>
